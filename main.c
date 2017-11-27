@@ -46,11 +46,11 @@ int main(int argc, const char** argv){
 
 	/*	*/
 	int i;
-	int c;									/*	*/
-	const char* shortopt = "vVl46s:S:i:f:";	/*	*/
+	int c;							/*	*/
+	const char* shortopt = "vVl46s:S:i:f:";			/*	*/
 
 	char** ifacelist = NULL;				/*	*/
-	int listcount = 0;						/*	*/
+	int listcount = 0;					/*	*/
 	iFaceAttr* ifaces = NULL;				/*	*/
 
 	/*	Long options.*/
