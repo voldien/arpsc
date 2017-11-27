@@ -1,0 +1,28 @@
+# bash completion for arpsc(1)
+
+_arpsc() 
+{
+	local cur prev opts
+	COMPREPLY=()
+	cur="${COMP_WORDS[COMP_CWORD]}"
+	prev="${COMP_WORDS[COMP_CWORD-1]}"
+	opts="
+	--version
+	--verbose
+	--debug
+	--interface=
+	--ip4
+	--ip6
+	--sleep="
+
+	# Default generate compare of all available option.
+	COMPREPLY=( $(compgen -W "${opts}" -- "${cur}") )
+
+	# If there's only one option, without =, then allow a space
+	if [[ ${#COMPREPLY[@]} == 1 && ${COMPREPLY[0]} != "--"*"=" ]] ; then
+		compopt +o nospace
+	fi
+
+	return 0
+}
+complete -o nospace -F _arpsc arpsc
