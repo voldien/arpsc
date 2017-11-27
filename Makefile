@@ -15,12 +15,14 @@ PREFIX ?= /usr
 INSTALL_LOCATION=$(DESTDIR)$(PREFIX)
 # Compiler
 CC ?= gcc
-CFLAGS := -DARPSC_VERSION=\"$(VERSION)\"
+CFLAGS := -DARPSC_VERSION=\"$(VERSION)\" -I"include"
 CLIBS := -lpthread
 # Sources
-SRC = $(wildcard *.c)
+SRC = $(wildcard src/*.c)
 OBJS = $(notdir $(subst .c,.o,$(SRC)))
 TARGET ?= arpsc
+
+vpath %.c : src
 
 all : $(TARGET)
 	@echo -n "Finished $(TARGET)! \n"
@@ -45,7 +47,7 @@ install : $(TARGET)
 distribution : $(TARGET)
 	$(RM) -r $(TARGET)-$(VERSION)
 	$(MKDIR) $(TARGET)-$(VERSION)
-	$(CP) *.c *.h Makefile LICENSE $(TARGET)-$(VERSION)
+	$(CP) *.c *.h Makefile LICENSE arpsc.bc $(TARGET)-$(VERSION)
 	tar cf - $(TARGET)-$(VERSION) | gzip -c > $(TARGET)-$(VERSION).tar.gz
 	$(RM) -r $(TARGET)-$(VERSION)
 
