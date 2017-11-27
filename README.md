@@ -1,6 +1,6 @@
 # arpsc #
 ----
-The *arpsc* is simple program or continuous ARP scanning on the network. Where program tries to follow the GNU principle, do one thing and do it well.
+The *arpsc* is a simple program for continuous ARP scanning on the network. Where the program tries to follow the GNU principle, do one thing and do it well.
 
 The program can be configured for performing the ARP scanning differently, time interval, interface specified, display format and etc. See *arpsc*(1) for more information. 
 
