@@ -331,7 +331,7 @@ void* arpsc_arp_thread_func(void* p){
 	return NULL;
 }
 
-void arpsc_print_arp_format(const char* __restrict__ format,
+void arpsc_print_arp_format(const char* __restrict__ pformat,
         iFaceAttr* __restrict__ iface, ARPRESPPACK* __restrict__ replay,
         unsigned int time) {
 
@@ -346,7 +346,7 @@ void arpsc_print_arp_format(const char* __restrict__ format,
 	char format;
 	char endof = ' ';
 
-	tmpformatstr = (char*)format;
+	tmpformatstr = (char*)pformat;
 	format = *tmpformatstr++;
 
 	/*	Iterate through each print format string option.	*/
