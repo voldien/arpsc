@@ -1,5 +1,6 @@
 # arpsc
 [![License: GPL v3](https://img.shields.io/badge/License-GPLv3-blue.svg)](https://www.gnu.org/licenses/gpl-3.0)
+[![Language grade: C/C++](https://img.shields.io/lgtm/grade/cpp/g/voldien/arpsc.svg?logo=lgtm&logoWidth=18)](https://lgtm.com/projects/g/voldien/arpsc/context:cpp)
 
 The *arpsc* is a simple program for continuous ARP scanning on the network. Where the program tries to follow the GNU principle, do one thing and do it well.
 
