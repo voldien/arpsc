@@ -8,6 +8,16 @@ The program can be configured for performing the ARP scanning differently, time 
 # Motivation #
 The program was designed for allowing for a continuous *ARP* scanning on the network. Allowing for the program be used for device detection. 
 
+
+## Installation
+The software can be easily installed with invoking the following command.
+```bash
+mkdir build && cd build
+cmake ..
+cmake --build .
+make install
+```
+
 # Examples #
 Common example of using the *arpsc* would be as followed:
 ```

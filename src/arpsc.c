@@ -7,7 +7,7 @@
 #include<errno.h>
 
 const char* arpsc_version(void){
-	return ARPSC_VERSION;
+	return ARPSC_STR_VERSION;
 }
 
 int arpsc_listening(iFaceAttr** ifaces, unsigned int numiface){

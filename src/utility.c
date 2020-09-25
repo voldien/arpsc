@@ -1,5 +1,6 @@
 #include"utility.h"
-
+#include <sys/socket.h>
+#include <linux/if.h>
 #include <sys/socket.h>
 #include <stdio.h>
 #include <unistd.h>
@@ -17,6 +18,10 @@
 #include <errno.h>
 #include <sys/select.h>
 #include <signal.h>
+#include <netdb.h>
+#ifndef ifr_newname
+#define ifr_newname ifr_ifru.ifru_slave
+#endif
 
 unsigned int g_verbose = 0;
 unsigned int g_debug = 0;
