@@ -25,7 +25,7 @@
  *
  *	@Return non-null terminated string.
  */
-extern const char *arpsc_version(void);
+extern const char *arpsc_version();
 
 /**
  *	Start listenining onf ARP

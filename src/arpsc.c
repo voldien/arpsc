@@ -6,7 +6,7 @@
 #include <sys/select.h>
 #include <time.h>
 
-const char *arpsc_version(void) { return ARPSC_STR_VERSION; }
+const char *arpsc_version() { return ARPSC_STR_VERSION; }
 
 int arpsc_listening(iFaceAttr **ifaces, unsigned int numiface) {
 

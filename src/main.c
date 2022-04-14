@@ -16,62 +16,58 @@
  *	along with this program.  If not, see <http://www.gnu.org/licenses/>.
  *
  */
-#include"arpsc.h"
-#include"utility.h"
-#include<getopt.h>
-#include<sys/socket.h>
-#include<sys/select.h>
-#include<pthread.h>
-#include<signal.h>
-#include<stdlib.h>
+#include "arpsc.h"
+#include "utility.h"
+#include <getopt.h>
+#include <pthread.h>
+#include <signal.h>
+#include <stdlib.h>
+#include <sys/select.h>
+#include <sys/socket.h>
 
-unsigned int g_numiface = 0;				/*	*/
-iFaceAttr* g_pifaces = NULL;				/*	*/
-char* g_format = "itsrMmh";					/*	*/
-unsigned int g_listenonly = 0;				/*	*/
+unsigned int g_numiface = 0;   /*	*/
+iFaceAttr *g_pifaces = NULL;   /*	*/
+char *g_format = "itsrMmh";	   /*	*/
+unsigned int g_listenonly = 0; /*	*/
 
-static void arpsc_release_ifaces(void){
+static void arpsc_release_ifaces() {
 
 	int i;
-	iFaceAttr* piface;
+	iFaceAttr *piface;
 	/*	Clean up code.	*/
-	for(i = 0; i < g_numiface; i++){
+	for (i = 0; i < g_numiface; i++) {
 		piface = &g_pifaces[i];
 		arpsc_release_iface(piface);
-
 	}
 }
 
-int main(int argc, const char** argv){
+int main(int argc, const char **argv) {
 
 	/*	*/
 	int i;
-	int c;							/*	*/
-	const char* shortopt = "vVl46s:S:i:f:";			/*	*/
+	int c;									/*	*/
+	const char *shortopt = "vVl46s:S:i:f:"; /*	*/
 
-	char** ifacelist = NULL;				/*	*/
-	int listcount = 0;					/*	*/
-	iFaceAttr* ifaces = NULL;				/*	*/
+	char **ifacelist = NULL;  /*	*/
+	int listcount = 0;		  /*	*/
+	iFaceAttr *ifaces = NULL; /*	*/
 
 	/*	Long options.*/
-	static const struct option longoption[] = {
-		{"version",     no_argument, 		NULL,	'v'},	/*	*/
-		{"verbose",     no_argument, 		NULL,	'V'},	/*	*/
-		{"debug",	no_argument, 		NULL,	'd'},	/*	*/
-		{"listen-only", no_argument, 		NULL,	'l'},	/*	*/
-		{"ipv4",        no_argument, 		NULL,	'4'},	/*	*/
-		{"ipv6",        no_argument, 		NULL,	'6'},	/*	*/
-		{"sleep",       required_argument,	NULL,	's'},	/*	*/
-		{"scan",        required_argument, 	NULL,	'S'},	/*	*/
-		{"interface",   required_argument,	NULL,	'i'},	/*	*/
-		{"format",      required_argument,	NULL,	'f'},	/*	*/
-		{NULL, 0, NULL, 0}
-	};
-
+	static const struct option longoption[] = {{"version", no_argument, NULL, 'v'},			/*	*/
+											   {"verbose", no_argument, NULL, 'V'},			/*	*/
+											   {"debug", no_argument, NULL, 'd'},			/*	*/
+											   {"listen-only", no_argument, NULL, 'l'},		/*	*/
+											   {"ipv4", no_argument, NULL, '4'},			/*	*/
+											   {"ipv6", no_argument, NULL, '6'},			/*	*/
+											   {"sleep", required_argument, NULL, 's'},		/*	*/
+											   {"scan", required_argument, NULL, 'S'},		/*	*/
+											   {"interface", required_argument, NULL, 'i'}, /*	*/
+											   {"format", required_argument, NULL, 'f'},	/*	*/
+											   {NULL, 0, NULL, 0}};
 
 	/*	Iterate through each supported options.	*/
-	while( (c = getopt_long(argc, (char *const *)argv, shortopt, longoption, NULL)) != EOF){
-		switch(c){
+	while ((c = getopt_long(argc, (char *const *)argv, shortopt, longoption, NULL)) != EOF) {
+		switch (c) {
 		case 'v':
 			printf("version %s\n", arpsc_version());
 			exit(EXIT_SUCCESS);
@@ -97,17 +93,16 @@ int main(int argc, const char** argv){
 	opterr = 0;
 
 	/*	Check privilege level.	*/
-	if( getuid() && geteuid()){
+	if (getuid() && geteuid()) {
 		fprintf(stderr, "not root.\n");
 		return EXIT_FAILURE;
 	}
 
-
 	/*	*/
-	while( (c = getopt_long(argc, (char *const *)argv, shortopt, longoption, NULL)) != EOF){
-		switch(c){
+	while ((c = getopt_long(argc, (char *const *)argv, shortopt, longoption, NULL)) != EOF) {
+		switch (c) {
 		case 's':
-			if(optarg){
+			if (optarg) {
 				g_sleepmicro = strtof(optarg, NULL) * 1E6;
 			}
 			break;
@@ -115,13 +110,13 @@ int main(int argc, const char** argv){
 
 			break;
 		case 'i':
-			if(optarg){
+			if (optarg) {
 				listcount = arpsc_parse_ifaces_cmd(optarg, &ifacelist);
 				arpsc_verbose_printf("%d interface.\n", listcount);
 			}
 			break;
 		case 'f':
-			if(optarg){
+			if (optarg) {
 				g_format = optarg;
 			}
 			break;
@@ -141,13 +136,13 @@ int main(int argc, const char** argv){
 
 	/*	Get interfaces.	*/
 	g_numiface = arpsc_init_ifaces(ifacelist, &ifaces);
-	if(g_numiface < 1){
+	if (g_numiface < 1) {
 		fprintf(stderr, "Failed creating interface for scanning.\n");
 		return EXIT_FAILURE;
 	}
 
 	/*	Release resources.	*/
-	for(i = 0; i < listcount; i++){
+	for (i = 0; i < listcount; i++) {
 		free(ifacelist[i]);
 	}
 	free(ifacelist);
