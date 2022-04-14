@@ -11,14 +11,8 @@ jobs:
       matrix:
         os: [ubuntu-latest]
         platform: [x32, x64]
-        compiler: [gcc, clang]
+        compiler: [gcc]
         include:
-        - os: ubuntu-latest
-          platform: x64
-          compiler: clang
-        - os: ubuntu-latest
-          platform: x32
-          compiler: clang
         - os: ubuntu-latest
           platform: x64
           compiler: gcc

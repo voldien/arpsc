@@ -76,17 +76,3 @@ TARGET_INCLUDE_DIRECTORIES(arpsc PRIVATE ${CMAKE_CURRENT_SOURCE_DIR}/include)
 
 # Add the install targets
 INSTALL (TARGETS arpsc DESTINATION bin)
-
-# Create distrubtion archive file.
-IF( UNIX )
-	SET( TARGETDIR "${PROJECT_NAME}-${SWP_VERSION}")
-	ADD_CUSTOM_TARGET(	distribution
-				COMMAND mkdir -p ${TARGETDIR}
-				COMMAND cp -r ${CMAKE_CURRENT_SOURCE_DIR}/*.c
-				COMMAND cp -r ${CMAKE_CURRENT_SOURCE_DIR}/*.h
-				${CMAKE_CURRENT_SOURCE_DIR}/CMakeLists.txt
-				${CMAKE_CURRENT_SOURCE_DIR}/LICENSE
-				${CMAKE_CURRENT_SOURCE_DIR}/README.md  ${TARGETDIR}
-				COMMAND tar cf - ${TARGETDIR} | gzip -c > ${TARGETDIR}.tar.gz
-				COMMAND rm -r ${TARGETDIR} )
-ENDIF()
